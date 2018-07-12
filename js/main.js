@@ -44,7 +44,7 @@ const insertNote = function(_id, title, text) {
 
 const saveNote = () => NotesApp.saveNote(function(_id, title, text) {
   if(title === '') {
-    title = 'Write a fucking title';
+    title = 'Sin titulo';
   }
   let index = getNoteById(_id);
   if(index !== undefined) {
@@ -56,13 +56,14 @@ const saveNote = () => NotesApp.saveNote(function(_id, title, text) {
 });
 
 const onClickNote = (event) => NotesApp.onClick(event, function(_id) {
-  console.log('Click button Add Note 🖱');
-  let note;
   let index = getNoteById(_id);
   if(index !== undefined){
-      note = notes[index]
+      let note = notes[index];
+      if(note.title === 'Sin titulo') {
+          note.title = '';
+      }
+      NotesApp.showNote(note);
   }
-  NotesApp.showNote(note);
 });
 
 document.addEventListener('DOMContentLoaded', function(event) {
